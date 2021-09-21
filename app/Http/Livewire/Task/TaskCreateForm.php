@@ -27,6 +27,7 @@ class TaskCreateForm extends Component
     {
         $this->tags = $this->getTags();
         $this->types = Type::latest()->get();
+        $this->areas = Area::latest()->get();
     }
     public function getTags()
     {
@@ -35,15 +36,16 @@ class TaskCreateForm extends Component
     public function getAreas()
     {
         $builder = new Area;
-        if ($area = $this->query) {
-            $builder = $builder->search($area);
+        if ($region = $this->query) {
+            $builder = $builder->where('eng_name', 'LIKE', "%$this->query%");
+            return Area::where('eng_name', 'LIKE', "%$this->query%")->get();
         }
         return $builder->get();
     }
 
     public function createTask(CreateNewTasks $creator)
     {
-        // dd($this->state);
+        dd($this->state);
         $this->resetErrorBag();
 
         $task = $creator->create(auth()->user(), $this->state);

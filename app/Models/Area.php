@@ -3,17 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
-use Laravel\Scout\Searchable;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Area extends Model
 {
-    use HasFactory, NodeTrait, Searchable;
-    use Searchable {
-        Searchable::usesSoftDelete insteadof NodeTrait;
-    }
+    use HasFactory, NodeTrait;
+    // use Searchable {
+    //     Searchable::usesSoftDelete insteadof NodeTrait;
+    // }
     protected $fillable = [
         'name',
         'slug',
@@ -49,12 +48,12 @@ class Area extends Model
     {
         return $this->belongsToMany(Task::class, 'task_area')->withTimestamps();
     }
-    public function toSearchableArray()
-    {
-        return [
-            'id' => $this->id,
-            'slug' => $this->eng_name,
-            'name' => $this->name,
-        ];
-    }
+    // public function toSearchableArray()
+    // {
+    //     return [
+    //         'id' => $this->id,
+    //         'slug' => $this->eng_name,
+    //         'name' => $this->name,
+    //     ];
+    // }
 }

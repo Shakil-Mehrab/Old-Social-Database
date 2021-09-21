@@ -18,6 +18,7 @@ class CreateNewTask implements CreateNewTasks
             'platforms.*' => 'required|url',
             'types' => 'required|array',
             'tags' => 'required|array',
+            'area' => 'required',
         ])->validate();
 
         $task = $user
